@@ -124,12 +124,6 @@ where
                 .parse_mod(subdir)
                 .unwrap_or_else(|err| self.mod_error = Some(err));
         }
-        let adjacent = self.mod_dir.join(format!("{}.rs", mod_name));
-        if adjacent.is_file() {
-            return self
-                .parse_mod(adjacent)
-                .unwrap_or_else(|err| self.mod_error = Some(err));
-        }
 
         let mut nested_mod_dir = self.current_path.clone();
         nested_mod_dir.pop();
@@ -151,6 +145,13 @@ where
                     .parse_mod(adjacent_mod)
                     .unwrap_or_else(|err| self.mod_error = Some(err));
             }
+        }
+
+        let adjacent = self.mod_dir.join(format!("{}.rs", mod_name));
+        if adjacent.is_file() {
+            return self
+                .parse_mod(adjacent)
+                .unwrap_or_else(|err| self.mod_error = Some(err));
         }
 
         panic!(
