@@ -1,0 +1,10 @@
+[workspace]
+# empty, so that this will not be considered an omission
+# in the top level workspace
+
+[package]
+name = "test1"
+edition = "2021"
+
+[dependencies]
+gettext-rs = { version = "0.7", features = ["gettext-system"] }
